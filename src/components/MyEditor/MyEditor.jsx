@@ -1,46 +1,49 @@
 import React, { useRef, useState, useEffect } from "react";
 
 import { ControlledEditor } from "@monaco-editor/react";
+import { Editor } from "./Editor";
+
+const editorConfig = {
+  options: {
+    minimap: {
+      enabled: false,
+    },
+  },
+  theme: "dark",
+  language: "javascript",
+  height: "95vh",
+  value: "// Write your code here",
+};
+
 export default function MyEditor() {
   const [isEditorReady, setIsEditorReady] = useState(false);
+  const [editor, setEditor] = useState(null);
   const editorRef = useRef(null);
 
   function handleEditorDidMount(_, editor) {
     setIsEditorReady(true);
     editorRef.current = editor;
+    setEditor(new Editor(editorRef));
   }
 
-  /**
-   * This useEffect is being used as an Initialiser for the Editor.
-   * The steps taken are:
-   *
-   * 1. Attach a listener to the editor.
-   */
+  const initialiseListeners = () => {
+    editor.onValueChange();
+  };
+
   useEffect(() => {
     if (editorRef && isEditorReady) {
-      listenToValueChange();
+      initialiseListeners();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editorRef, isEditorReady]);
-
-  function listenToValueChange() {
-    editorRef.current.onDidChangeModelContent((ev) => {
-      console.log(editorRef.current.getValue());
-    });
-  }
 
   return (
     <>
+      <button onClick={() => editor?.getValue()}>Get Value</button>
+
       <ControlledEditor
-        height="95vh"
-        language="javascript"
-        value={"// write your code here"}
         editorDidMount={handleEditorDidMount}
-        theme={"dark"}
-        options={{
-          minimap: {
-            enabled: false,
-          },
-        }}
+        {...editorConfig}
       />
     </>
   );
