@@ -49,4 +49,49 @@ export class Editor {
     console.log(this.editor.setValue(value));
     logger.warn("This is a warning");
   }
+
+  /**
+   *  Sets the cursor position to the specified position
+   * @param {{column: number, lineNumber: number}} position
+   */
+  setPosition(position) {
+    this.editor.setPosition(position);
+  }
+
+  getOptions() {
+    console.log(this.editor.getOptions());
+  }
+
+  setMultipleSelections(selections) {
+    this.editor.setSelections(selections);
+  }
+
+  setSelectionsWithHighlight(selections) {
+    this.editor.deltaDecorations(
+      [],
+      [
+        {
+          range: {
+            endColumn: 4,
+            startColumn: 0,
+            endLineNumber: 4,
+            startLineNumber: 0,
+          },
+          options: {
+            inlineClassName: "blue-background",
+            hoverMessage: { value: "This message is on hover" },
+          },
+        },
+      ]
+    );
+  }
+
+  /**
+   * Inserts text at the cursor position
+   */
+  insertAtCursorPosition(text) {
+    this.editor.trigger("keyboard", "type", {
+      text,
+    });
+  }
 }

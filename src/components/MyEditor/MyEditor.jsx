@@ -3,6 +3,8 @@ import React, { useRef, useState, useEffect } from "react";
 import { ControlledEditor } from "@monaco-editor/react";
 import { Editor } from "./Editor";
 
+import "./styles.css";
+
 const editorConfig = {
   options: {
     minimap: {
@@ -14,6 +16,18 @@ const editorConfig = {
   height: "95vh",
   value: "// Write your code here",
 };
+
+/**
+ * TODO:
+ *  [x] Get selections
+ *  [x] Set Selections
+ *  [x] Highlight Selections
+ *  [x] Get Value of Edior
+ *  [x] Insert text at position
+ *  [ ] Insert Multiple Cursors
+ *  [ ] Highlight Cursors
+ *  [x] Get Value Change
+ */
 
 export default function MyEditor() {
   const [isEditorReady, setIsEditorReady] = useState(false);
@@ -37,9 +51,37 @@ export default function MyEditor() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editorRef, isEditorReady]);
 
+  const slections = [
+    {
+      selectionStartColumn: 0,
+      selectionStartLineNumber: 0,
+      positionLineNumber: 4,
+      positionColumn: 4,
+    },
+
+    {
+      selectionStartColumn: 5,
+      selectionStartLineNumber: 5,
+      positionLineNumber: 9,
+      positionColumn: 9,
+    },
+  ];
+
   return (
     <>
       <button onClick={() => editor?.getValue()}>Get Value</button>
+      <button onClick={() => editor?.insertAtCursorPosition("Yo")}>
+        Insert Text
+      </button>
+      <button onClick={() => editor?.setPosition({ column: 5, lineNumber: 1 })}>
+        Set Position
+      </button>
+      <button onClick={() => editor?.setMultipleSelections(slections)}>
+        Set Selection
+      </button>
+      <button onClick={() => editor?.setSelectionsWithHighlight()}>
+        Set Selection with Highlight
+      </button>
 
       <ControlledEditor
         editorDidMount={handleEditorDidMount}
