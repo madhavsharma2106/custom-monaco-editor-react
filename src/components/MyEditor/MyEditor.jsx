@@ -4,6 +4,7 @@ import { ControlledEditor } from "@monaco-editor/react";
 import { Editor } from "./Editor";
 
 import "./styles.css";
+import { initialValue } from "../../utils";
 
 const editorConfig = {
   options: {
@@ -14,7 +15,7 @@ const editorConfig = {
   theme: "dark",
   language: "javascript",
   height: "95vh",
-  value: "// Write your code here",
+  value: initialValue,
 };
 
 /**
@@ -22,10 +23,10 @@ const editorConfig = {
  *  [x] Get selections
  *  [x] Set Selections
  *  [x] Highlight Selections
- *  [x] Get Value of Edior
+ *  [x] Get Value of Editor
  *  [x] Insert text at position
- *  [ ] Insert Multiple Cursors
- *  [ ] Highlight Cursors
+ *  [x] Insert Multiple Cursors
+ *  [x] Highlight Cursors
  *  [x] Get Value Change
  */
 
@@ -82,7 +83,7 @@ export default function MyEditor() {
       <button onClick={() => editor?.setSelectionsWithHighlight()}>
         Set Selection with Highlight
       </button>
-
+      <button onClick={() => editor?.addNewCursor()}>Set New Cursor</button>
       <ControlledEditor
         editorDidMount={handleEditorDidMount}
         {...editorConfig}

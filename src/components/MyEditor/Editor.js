@@ -87,6 +87,38 @@ export class Editor {
   }
 
   /**
+   * Adding new cursors
+   */
+  addNewCursor() {
+    const position = [
+      {
+        range: {
+          endColumn: 4,
+          startColumn: 4,
+          endLineNumber: 2,
+          startLineNumber: 2,
+        },
+        options: {
+          className: "blue-cursor",
+        },
+      },
+      {
+        range: {
+          endColumn: 5,
+          startColumn: 5,
+          endLineNumber: 3,
+          startLineNumber: 3,
+        },
+        options: {
+          className: "blue-cursor",
+        },
+      },
+    ];
+
+    this.editor.deltaDecorations([], position);
+  }
+
+  /**
    * Inserts text at the cursor position
    */
   insertAtCursorPosition(text) {
