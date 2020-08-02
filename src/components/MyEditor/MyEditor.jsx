@@ -23,10 +23,12 @@ const editorConfig = {
  *  [x] Get selections
  *  [x] Set Selections
  *  [x] Highlight Selections
+ *  [ ] Add tooltip to selection
  *  [x] Get Value of Editor
  *  [x] Insert text at position
  *  [x] Insert Multiple Cursors
  *  [x] Highlight Cursors
+ *  [ ] Add tooltip to cursors
  *  [x] Get Value Change
  */
 
@@ -43,6 +45,7 @@ export default function MyEditor() {
 
   const initialiseListeners = () => {
     editor.onValueChange();
+    editor.addNewCursor();
   };
 
   useEffect(() => {

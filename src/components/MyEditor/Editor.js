@@ -78,7 +78,7 @@ export class Editor {
             startLineNumber: 0,
           },
           options: {
-            inlineClassName: "blue-background",
+            className: "blue-background",
             hoverMessage: { value: "This message is on hover" },
           },
         },
